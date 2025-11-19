@@ -27,6 +27,8 @@ public class BCollectTrash : MonoBehaviour
 
     private void TrashCollectable()
     {
+        if (StaticAmountTrash.IsFull) return; // si se llenó la aspiradora, no recoger
+
         GameObject trash = _camRay.GetObjDetected();
 
         // Seguridad extra
@@ -39,6 +41,20 @@ public class BCollectTrash : MonoBehaviour
         if (trashScore != null)
         {
             StaticScoreTrash.AddScore(trashScore.GetScore());
+        }
+
+        TrashAmount trashAmount = trash.GetComponent<TrashAmount>();
+
+        if (trashAmount != null)
+        {
+            StaticAmountTrash.AddAmount(trashAmount.GetAmount());
+        }
+
+        TrashSprite trashSprite = trash.GetComponent<TrashSprite>();
+
+        if (trashAmount != null)
+        {
+            StaticSpriteTrash.AddSprite(trashSprite.GetSprite());
         }
 
         // Acción del click

@@ -101,6 +101,7 @@ GameObject:
   - component: {fileID: 2807679052279969558}
   - component: {fileID: 6991507789638028468}
   - component: {fileID: -8392178204116776267}
+  - component: {fileID: 2393919371353188304}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Trash
@@ -222,5 +223,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4dbf390a28e3f5e4188ea3959da5a1dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2393919371353188304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8259599124576935065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2c367ab07a52d64ea96b06e79b615a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

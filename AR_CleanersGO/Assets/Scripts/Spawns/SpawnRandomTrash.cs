@@ -9,10 +9,10 @@ public class SpawnRandomTrash : MonoBehaviour
 
     private GameObject[] _prefabs;
 
-    private const int _maxObjs = 8;
+    private const int _maxObjs = 15;
     private int _spawnedObjs = 0;
 
-    private float _spawnInterval = 5f;
+    private float _spawnInterval = 3f;
 
     void Start()
     {
