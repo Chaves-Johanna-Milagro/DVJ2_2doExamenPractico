@@ -12,6 +12,7 @@ public class BDropTrash : MonoBehaviour
     private int _currentSpriteIndex = 0;
     private List<Sprite> _sprites;
 
+    private Sprite _default; // Pa cuando se le acabe la basura vuelva al blanco
     void Start()
     {
         _camRay = FindObjectOfType<CameraRayPoint>();
@@ -28,6 +29,8 @@ public class BDropTrash : MonoBehaviour
         {
             _image.sprite = _sprites[0];
         }
+
+        _default = _image.sprite;
     }
 
     void Update()
@@ -49,6 +52,60 @@ public class BDropTrash : MonoBehaviour
         if (obj == null || !obj.CompareTag("Container"))
             return;
 
+
+        ContainerAmount cAmount = obj.GetComponent<ContainerAmount>();
+
+        if (cAmount != null)
+        {
+            float restar = cAmount.GetAmount();
+            StaticAmountTrash.SubtractAmount(restar);
+
+            Debug.Log("Restando → " + restar + " | Nuevo amount: " + StaticAmountTrash.GetAmount());
+        }
+
+
+        bool basuraCorrecta = false;
+
+        // Comparaacion de sprites 
+        ContainerSprite container = obj.GetComponent<ContainerSprite>();
+
+        if (container != null)
+        {
+            Sprite containerSprite = container.GetSprite();
+            Sprite dropSprite = _image.sprite; 
+
+            if ( dropSprite == containerSprite)
+            {
+                basuraCorrecta = true;
+                Debug.Log("✔ Basura correcta");
+            }
+            else
+            {
+                basuraCorrecta = false;
+                Debug.Log("✘ Basura incorrecta");
+            }
+        }
+
+
+        ContainerScore cScore = obj.GetComponent<ContainerScore>();
+
+        if (cScore != null)
+        {
+            int score = cScore.GetScore();
+
+            if (basuraCorrecta)
+            {
+                StaticScoreTrash.AddScore(score);
+                Debug.Log("SUMANDO score: +" + score + " → Total: " + StaticScoreTrash.GetScore());
+            }
+            else
+            {
+                StaticScoreTrash.SubtractScore(score);
+                Debug.Log("RESTANDO score: -" + score + " → Total: " + StaticScoreTrash.GetScore());
+            }
+        }
+
+
         _sprites = StaticSpriteTrash.GetSprites();
 
         if (_sprites.Count == 0)
@@ -57,7 +114,11 @@ public class BDropTrash : MonoBehaviour
         _currentSpriteIndex++;
 
         if (_currentSpriteIndex >= _sprites.Count)
-            _currentSpriteIndex = 0;
+        {
+            _image.sprite = _default;
+            return;
+        }
+            //_currentSpriteIndex = 0;
 
         _image.sprite = _sprites[_currentSpriteIndex];
 
