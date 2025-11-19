@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6723593597240239123}
   - component: {fileID: 1774279961667640638}
   - component: {fileID: -8459456955176262192}
+  - component: {fileID: -1034765271868677593}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Trash
@@ -120,6 +121,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90ad560b8e56a7849b658f1708e75cd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-1034765271868677593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6290505028255009350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dbf390a28e3f5e4188ea3959da5a1dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &6708269251547841659

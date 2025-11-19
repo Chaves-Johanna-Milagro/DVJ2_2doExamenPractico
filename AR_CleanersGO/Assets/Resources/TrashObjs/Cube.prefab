@@ -100,6 +100,7 @@ GameObject:
   - component: {fileID: 686589898944005279}
   - component: {fileID: 7877290864924111882}
   - component: {fileID: 416458437186209113}
+  - component: {fileID: -8511831400060707258}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Trash
@@ -207,5 +208,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90ad560b8e56a7849b658f1708e75cd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-8511831400060707258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8466073925507896790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dbf390a28e3f5e4188ea3959da5a1dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

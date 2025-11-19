@@ -8,9 +8,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Recoleccion.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 1
-    path: Assets/Scenes/Clasificacion.unity
-    guid: cd87f9de281877b49b26fce9eb62ac91
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 730fa0603f36fa940850e322520e15d6, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 289c1b55c9541489481df5cc06664110, type: 3}
