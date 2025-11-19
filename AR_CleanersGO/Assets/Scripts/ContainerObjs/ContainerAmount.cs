@@ -10,17 +10,17 @@ public class ContainerAmount : MonoBehaviour
 
         if (name == "Cube(Clone)")
         {
-            _amount = 10f;
+            _amount = 30f;
 
         }
         if (name == "Sphere(Clone)")
         {
-            _amount = 20f;
+            _amount = 10f;
 
         }
         if (name == "Capsule(Clone)")
         {
-            _amount = 30f;
+            _amount = 20f;
 
         }
 

@@ -13,12 +13,15 @@ public class BDropTrash : MonoBehaviour
     private List<Sprite> _sprites;
 
     private Sprite _default; // Pa cuando se le acabe la basura vuelva al blanco
+
     void Start()
     {
         _camRay = FindObjectOfType<CameraRayPoint>();
 
         _button = GetComponent<Button>();
         _image = GetComponent<Image>();
+
+        _default = _image.sprite;  
 
         _button.onClick.AddListener(SwitchSprite);
 
@@ -30,11 +33,12 @@ public class BDropTrash : MonoBehaviour
             _image.sprite = _sprites[0];
         }
 
-        _default = _image.sprite;
     }
 
     void Update()
     {
+        if (StaticTimer.IsFinished) return; // si se termina el tiempo ya no deja interactuar
+
         GameObject obj = _camRay.GetObjDetected();
 
         // Solo se puede interactuar si mirás un Container

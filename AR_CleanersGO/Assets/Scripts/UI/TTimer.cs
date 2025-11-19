@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class TTimer : MonoBehaviour
 {
-    private float _timeLeft = 60f; // 1 minuto
     private TMP_Text _timerText;
 
     private bool _timerEnded = false;
@@ -13,56 +12,65 @@ public class TTimer : MonoBehaviour
         _timerText = GetComponent<TMP_Text>();
     }
 
+
     void Update()
     {
         if (_timerEnded)
             return;
 
-        // Contar hacia atrás
-        _timeLeft -= Time.deltaTime;
+        // restamos tiempo usando la statica
+        StaticTimer.Subtract(Time.deltaTime);
 
-        // Evitar valores negativos
-        if (_timeLeft < 0)
-            _timeLeft = 0;
-
-        // Mostrar tiempo en formato MM:SS
+        // actualizar UI
         UpdateTimerUI();
 
-        // Cuando llega a 0 → aplicar penalización
-        if (_timeLeft == 0 && !_timerEnded)
+        // si llegó a cero → ejecutar penalización una sola vez
+        if (StaticTimer.IsFinished && !_timerEnded)
         {
             _timerEnded = true;
-            OnTimerEnd();
+            ApplyFinalPenalty();
         }
     }
 
     private void UpdateTimerUI()
     {
-        int minutes = Mathf.FloorToInt(_timeLeft / 60);
-        int seconds = Mathf.FloorToInt(_timeLeft % 60);
+        float t = StaticTimer.GetTime();
+
+        int minutes = Mathf.FloorToInt(t / 60);
+        int seconds = Mathf.FloorToInt(t % 60);
 
         _timerText.text = $"{minutes:00}:{seconds:00}";
     }
 
-    private void OnTimerEnd()
+    private void ApplyFinalPenalty()
     {
-        Debug.Log("⏳ Tiempo terminado. Restando puntos...");
+        Debug.Log("Tiempo agotado...");
 
-        // Buscar toda la basura que sigue en la escena
+        // Penalización por basura no recogida
         TrashScore[] allTrash = FindObjectsOfType<TrashScore>();
 
         foreach (TrashScore trash in allTrash)
         {
             int points = trash.GetScore();
-
-            // Restar puntaje por basura no recogida
             StaticScoreTrash.SubtractScore(points);
 
-            // Opcional: limpiar la escena
-            // trash.gameObject.SetActive(false);
-            // Destroy(trash.gameObject);
+            Debug.Log($"Restando {points} por basura no recogida ({trash.name})");
         }
 
-        Debug.Log("Puntaje final después de penalización: " + StaticScoreTrash.GetScore());
+
+        // Penalizar por amount restante
+        float amountLeft = StaticAmountTrash.GetAmount();
+
+        if (amountLeft > 0)
+        {
+            int penalty = Mathf.FloorToInt(amountLeft);
+            StaticScoreTrash.SubtractScore(penalty);
+
+            StaticAmountTrash.SubtractAmount(penalty);
+
+            Debug.Log($"Restando {penalty} puntos por amount restante");
+        }
+
+        Debug.Log("Puntaje final: " + StaticScoreTrash.GetScore());
     }
 }

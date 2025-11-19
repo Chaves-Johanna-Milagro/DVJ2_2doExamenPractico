@@ -16,6 +16,8 @@ public class BCollectTrash : MonoBehaviour
 
     void Update()
     {
+        if (StaticTimer.IsFinished) return; // si se termina el tiempo ya no deja interactuar
+
         GameObject trash = _camRay.GetObjDetected();
 
         // Actualizamos el estado del botón en tiempo real

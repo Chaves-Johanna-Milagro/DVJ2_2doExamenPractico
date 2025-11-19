@@ -10,17 +10,17 @@ public class ContainerScore : MonoBehaviour
 
         if (name == "Cube(Clone)")
         {
-            _score = 10;
+            _score = 30;
 
         }
         if (name == "Sphere(Clone)")
         {
-            _score = 20;
+            _score = 10;
 
         }
         if (name == "Capsule(Clone)")
         {
-            _score = 30;
+            _score = 20;
 
         }
 
