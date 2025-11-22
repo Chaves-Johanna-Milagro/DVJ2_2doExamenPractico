@@ -19,7 +19,7 @@ public class SpawnRandomContainer : MonoBehaviour
         _planeManager = GetComponent<ARPlaneManager>();
 
         // Cargar prefabs desde Resources/MisObjetos/
-        _prefabs = Resources.LoadAll<GameObject>("ContainerObjs");
+        _prefabs = Resources.LoadAll<GameObject>("Container");
 
         // Comienza la rutina de instanciado
         StartCoroutine(SpawnRoutine());
