@@ -59,39 +59,41 @@ public static class StaticScore
 
     // RESTA si el tag del objeto NO coincide con el tag correcto
     // Ej: RestaScore(obj, "Botella")   ← si obj.tag NO es "Botella", resta
-    public static void RestaScore(GameObject obj, string tagCorrecto)
+    public static void RestScore(GameObject obj)
     {
         string tag = obj.tag;
 
-        if (tag != tagCorrecto)
+        int oldScore = _score;
+
+        // Podés definir cuánto resta: uso el mismo valor que sumaría
+        if (tag == _botella)
         {
-            // Podés definir cuánto resta: uso el mismo valor que sumaría
-            if (tagCorrecto == _botella)
-            {
-                _score -= _isBotella;
-            }
-            else if (tagCorrecto == _comida)
-            {
-                _score -= _isComida;
-            }
-            else if (tagCorrecto == _papel)
-            {
-                _score -= _isPapel;
-            }
-            else if (tagCorrecto == _lata)
-            {
-                _score -= _isLata;
-            }
-            else if (tagCorrecto == _bolsa)
-            {
-                _score -= _isBolsa;
-            }
-            else
-            {
-                Debug.Log("[StaticScore] Tag correcto '" + tagCorrecto + "' no está configurado.");
-            }
+            _score -= _isBotella;
         }
+        else if (tag == _comida)
+        {
+            _score -= _isComida;
+        }
+        else if (tag == _papel)
+        {
+            _score -= _isPapel;
+        }
+        else if (tag == _lata)
+        {
+            _score -= _isLata;
+        }
+        else if (tag == _bolsa)
+        {
+            _score -= _isBolsa;
+        }
+        else
+        {
+            Debug.Log("[StaticScore] Tag '" + tag + "' no tiene puntaje asociado.");
+        }
+
+        if (_score != oldScore) ScoreChanged = true;
     }
+    
 
     // Obtener puntaje actual
     public static int GetScore()

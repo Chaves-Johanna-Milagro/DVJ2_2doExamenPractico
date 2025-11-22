@@ -61,9 +61,10 @@ public class BCollect : MonoBehaviour
 
         Debug.Log($"[BCollect] basura de tipo: {trash.tag}  recolectada");
 
-        // Añadir puntaje y amount correspondiente
+        // Añadir puntaje, amount y sprite correspondiente
         StaticAmount.AddAmountByTag(trash);
         StaticScore.AddScoreByTag(trash);
+        StaticSprite.AddSpriteByTag(trash);
 
         // Opcional: destruir el objeto
          //Destroy(trash);

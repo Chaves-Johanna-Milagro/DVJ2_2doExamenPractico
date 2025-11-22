@@ -6,14 +6,22 @@ public static class StaticSprite
     private static List<Sprite> _sprites = new List<Sprite>();
     private static Sprite[] _resourcesSprites;
 
+    private static string _botella = "Botella";
+
+    private static string _lata = "Lata";
+    private static string _bolsa = "Bolsa";
+
+    private static string _comida = "Comida";
+    private static string _papel = "Papel";
+
     // Llama a esto UNA vez al iniciar el juego
-    public static void LoadSpritesFromResources(string folderName)
+    public static void LoadSpritesFromResources()
     {
-        _resourcesSprites = Resources.LoadAll<Sprite>(folderName);
+        _resourcesSprites = Resources.LoadAll<Sprite>("Sprites");
 
         if (_resourcesSprites == null || _resourcesSprites.Length == 0)
         {
-            Debug.Log("[StaticSprite] No se encontraron sprites en Resources/" + folderName);
+            Debug.Log("[StaticSprite] No se encontraron sprites en Resources/Sprites");
         }
     }
 

@@ -32,32 +32,41 @@ public static class StaticAmount
 
         float old = _amount;
 
+        float addValue = 0f;
+
         if (tag == _botella)
         {
-            _amount += _isBotella;
+            addValue = _isBotella;
         }
         else if (tag == _comida)
         {
-            _amount += _isComida;
+            addValue = _isComida;
         }
         else if (tag == _papel)
         {
-            _amount += _isPapel;
+            addValue = _isPapel;
         }
         else if (tag == _lata)
         {
-            _amount += _isLata;
+            addValue = _isLata;
         }
         else if (tag == _bolsa)
         {
-            _amount += _isBolsa;
+            addValue = _isBolsa;
         }
         else
         {
             Debug.Log("[StaticAmount] Tag '" + tag + "' no tiene puntaje asociado.");
         }
-        // Para no pasar el máximo
-        if (_amount > _maxAmount) _amount = _maxAmount;
+
+        // Ajustar para no pasar el máximo
+        float spaceLeft = _maxAmount - _amount;
+        if (addValue > spaceLeft)
+        {
+            addValue = spaceLeft;
+        }
+
+        _amount += addValue;
 
         if (_amount != old) AmountChanged = true;
     }
@@ -65,41 +74,40 @@ public static class StaticAmount
     // RESTA si el tag del objeto NO coincide con el tag correcto
     // Ej: RestaScore(obj, "Botella")   ← si obj.tag NO es "Botella", resta
     // Aqui recibira el tag del objto y el nombre del sprite
-    public static void RestaAmount(GameObject obj, string tagCorrecto)
+    public static void RestAmount(GameObject obj)
     {
         string tag = obj.tag;
 
-        if (tag != tagCorrecto)
-        {
-            // Podés definir cuánto resta: uso el mismo valor que sumaría
-            if (tagCorrecto == _botella)
-            {
-                _amount -= _isBotella;
-            }
-            else if (tagCorrecto == _comida)
-            {
-                _amount  -= _isComida;
-            }
-            else if (tagCorrecto == _papel)
-            {
-                _amount -= _isPapel;
-            }
-            else if (tagCorrecto == _lata)
-            {
-                _amount -= _isLata;
-            }
-            else if (tagCorrecto == _bolsa)
-            {
-                _amount -= _isBolsa;
-            }
-            else
-            {
-                Debug.Log("[StaticAmount] Tag correcto '" + tagCorrecto + "' no está configurado.");
-            }
+        float old = _amount;
 
-            // No baja de cero
-            if (_amount < 0f) _amount = 0f;
+        if (tag == _botella)
+        {
+            _amount -= _isBotella;
         }
+        else if (tag == _comida)
+        {
+            _amount -= _isComida;
+        }
+        else if (tag == _papel)
+        {
+            _amount -= _isPapel;
+        }
+        else if (tag == _lata)
+        {
+            _amount -= _isLata;
+        }
+        else if (tag == _bolsa)
+        {
+            _amount -= _isBolsa;
+        }
+        else
+        {
+            Debug.Log("[StaticAmount] Tag '" + tag + "' no tiene puntaje asociado.");
+        }
+        // No baja de cero
+        if (_amount < 0f) _amount = 0f;
+
+        if (_amount != old) AmountChanged = true;
     }
 
     // Obtener puntaje actual

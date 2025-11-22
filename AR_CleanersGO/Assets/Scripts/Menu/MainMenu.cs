@@ -25,6 +25,9 @@ public class MainMenu : MonoBehaviour
 
             Debug.Log("Saliendo del juego...");
         });
+
+        // Cargamos los sprites de resourses
+        StaticSprite.LoadSpritesFromResources();
     }
 
 
