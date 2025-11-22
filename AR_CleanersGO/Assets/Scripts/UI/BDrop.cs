@@ -44,7 +44,10 @@ public class BDrop : MonoBehaviour
     {
         if (StaticTimer.IsFinished) return; // si se termina el tiempo ya no deja interactuar
 
-        if (StaticAmount.IsEmpty) return; // Si la aspi esta vacia no interactuar
+        if (StaticAmount.IsEmpty)  // Si la aspi esta vacia volver a recolectar
+        { 
+
+        } 
 
         GameObject trash = _camRay.GetObjDetected();
 
@@ -73,8 +76,8 @@ public class BDrop : MonoBehaviour
 
         Debug.Log($"[BDrop] basura de tipo: {trash.tag}  dropeada");
 
-        // Siempre restar cantidad
-        StaticAmount.RestAmount(trash);
+        // Siempre restar cantidad dependiendo es sprite y no el objeto apuntado
+        StaticAmount.RestAmount(_image.sprite.name);
 
         // Si NO coincide con el sprite actual, restar score
         if (_image.sprite == null || trash.tag != _image.sprite.name)
@@ -86,6 +89,9 @@ public class BDrop : MonoBehaviour
         {
             StaticScore.AddScoreByTag(trash);
             Debug.Log($"[BDrop] Tag {trash.tag} coincide con sprite {_image.sprite?.name}, se suma score.");
+
+            // Pa sumar cuando se reciclo bien
+            StaticStatistics.Reciclado();
         }
 
         // Avanzar al siguiente sprite
@@ -99,8 +105,16 @@ public class BDrop : MonoBehaviour
             _image.sprite = _default;
             _button.interactable = false;
             Debug.Log("[BDrop] Se acabaron los sprites, botón desactivado.");
-            SceneManager.LoadScene("Recoleccion");
-        }
 
+            if (StaticAmount.IsEmpty)
+            {
+                SceneManager.LoadScene("Recoleccion");
+                Debug.Log("[BDrop] Se acabaron los sprites, volviendo a recolectar...");
+
+                // Limpiar la lista para no acomular sprites anteriores
+                StaticSprite.ClearSprites();
+                Debug.Log("[BDrop] Limpiando lista de sprites, volviendo a recolectar...");
+            }
+        }
     }
 }

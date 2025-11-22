@@ -56,7 +56,7 @@ public static class StaticAmount
         }
         else
         {
-            Debug.Log("[StaticAmount] Tag '" + tag + "' no tiene puntaje asociado.");
+            Debug.Log("[StaticAmount] Tag '" + tag + "' no tiene amount asociado.");
         }
 
         // Ajustar para no pasar el máximo
@@ -71,44 +71,56 @@ public static class StaticAmount
         if (_amount != old) AmountChanged = true;
     }
 
-    // RESTA si el tag del objeto NO coincide con el tag correcto
-    // Ej: RestaScore(obj, "Botella")   ← si obj.tag NO es "Botella", resta
-    // Aqui recibira el tag del objto y el nombre del sprite
-    public static void RestAmount(GameObject obj)
+    // RESTA dependiendo el nombre del sprite en el boton del drop
+    public static void RestAmount(string spriteName)
     {
-        string tag = obj.tag;
-
         float old = _amount;
 
-        if (tag == _botella)
+        if (spriteName == _botella)
         {
             _amount -= _isBotella;
         }
-        else if (tag == _comida)
+        else if (spriteName == _comida)
         {
             _amount -= _isComida;
         }
-        else if (tag == _papel)
+        else if (spriteName == _papel)
         {
             _amount -= _isPapel;
         }
-        else if (tag == _lata)
+        else if (spriteName == _lata)
         {
             _amount -= _isLata;
         }
-        else if (tag == _bolsa)
+        else if (spriteName == _bolsa)
         {
             _amount -= _isBolsa;
         }
         else
         {
-            Debug.Log("[StaticAmount] Tag '" + tag + "' no tiene puntaje asociado.");
+            Debug.Log("[StaticAmount] Tag '" + spriteName + "' no tiene amount asociado.");
         }
         // No baja de cero
         if (_amount < 0f) _amount = 0f;
 
         if (_amount != old) AmountChanged = true;
     }
+
+    // Para conocer cuanto espacio disponible queda en la aspi
+    public static float GetValueByTag(GameObject obj)
+    {
+        string tag = obj.tag;
+
+        if (tag == _botella) return _isBotella;
+        if (tag == _comida) return _isComida;
+        if (tag == _papel) return _isPapel;
+        if (tag == _lata) return _isLata;
+        if (tag == _bolsa) return _isBolsa;
+
+        Debug.Log("[StaticAmount] Tag '" + tag + "' no tiene amount asociado.");
+        return 0f;
+    }
+
 
     // Obtener puntaje actual
     public static float GetAmount()

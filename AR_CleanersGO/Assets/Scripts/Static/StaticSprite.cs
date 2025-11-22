@@ -46,4 +46,12 @@ public static class StaticSprite
         Debug.Log($"[StaticSprite] Cantidad de sprites añadidos {_sprites.Count}");
         return _sprites;
     }
+    // Limpiar la lista cada que se terminen de dropear
+    public static void ClearSprites()
+    {
+        _sprites.Clear();
+        Debug.Log("[StaticSprite] Lista de sprites limpiada.");
+    }
+
+
 }

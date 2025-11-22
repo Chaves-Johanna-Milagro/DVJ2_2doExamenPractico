@@ -1,5 +1,6 @@
 ﻿using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TTimer : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class TTimer : MonoBehaviour
         if (StaticTimer.IsFinished)
         {
             Debug.Log("[TTimer] Tiempo acabado...");
+            SceneManager.LoadScene("Estadisticas");
             return;
         }
 

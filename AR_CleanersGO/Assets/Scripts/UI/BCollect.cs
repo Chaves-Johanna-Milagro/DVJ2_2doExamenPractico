@@ -59,14 +59,39 @@ public class BCollect : MonoBehaviour
         GameObject trash = _camRay.GetObjDetected();
         if (trash == null) return;
 
-        Debug.Log($"[BCollect] basura de tipo: {trash.tag}  recolectada");
+        float value = StaticAmount.GetValueByTag(trash);
+        float spaceLeft = StaticAmount.GetMaxAmount() - StaticAmount.GetAmount();
+
+        // Solo recolectar si cabe en el espacio restante
+        if (value <= spaceLeft)
+        {
+            Debug.Log($"[BCollect] basura de tipo: {trash.tag} recolectada");
+
+            StaticAmount.AddAmountByTag(trash);
+            StaticScore.AddScoreByTag(trash);
+            StaticSprite.AddSpriteByTag(trash);
+
+            StaticStatistics.Recolectado();
+
+            trash.SetActive(false);
+        }
+        else
+        {
+            Debug.Log($"[BCollect] basura de tipo: {trash.tag} NO recolectada, excede el espacio disponible ({spaceLeft}).");
+        }
+
+
+        /*Debug.Log($"[BCollect] basura de tipo: {trash.tag}  recolectada");
 
         // Añadir puntaje, amount y sprite correspondiente
         StaticAmount.AddAmountByTag(trash);
         StaticScore.AddScoreByTag(trash);
         StaticSprite.AddSpriteByTag(trash);
 
+        // pa sumar a las estadisticas finales
+        StaticStatistics.Recolectado();
+        */
         // Desactivar el objeto
-         trash.SetActive(false);
+        //trash.SetActive(false);
     }
 }
