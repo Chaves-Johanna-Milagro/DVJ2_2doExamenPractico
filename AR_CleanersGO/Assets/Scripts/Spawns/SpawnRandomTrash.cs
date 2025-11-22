@@ -12,14 +12,14 @@ public class SpawnRandomTrash : MonoBehaviour
     private const int _maxObjs = 15;
     private int _spawnedObjs = 0;
 
-    private float _spawnInterval = 3f;
+    private float _spawnInterval = 2.5f;
 
     void Start()
     {
         _planeManager = GetComponent<ARPlaneManager>();
 
         // Cargar prefabs desde Resources/MisObjetos/
-        _prefabs = Resources.LoadAll<GameObject>("TrashObjs");
+        _prefabs = Resources.LoadAll<GameObject>("Trash");
 
         // Comienza la rutina de instanciado
         StartCoroutine(SpawnRoutine());
@@ -75,7 +75,7 @@ public class SpawnRandomTrash : MonoBehaviour
             randomPoint.y * plane.size.y * 0.5f
         );
 
-        pos.y += 1f; // elevar un toque
+        pos.y += 0.5f; // elevar un toque
 
         // Elegir prefab random
         GameObject prefab = _prefabs[Random.Range(0, _prefabs.Length)];
