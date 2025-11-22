@@ -19,7 +19,7 @@ public class SpawnRandomTrash : MonoBehaviour
         _planeManager = GetComponent<ARPlaneManager>();
 
         // Cargar prefabs desde Resources/MisObjetos/
-        _prefabs = Resources.LoadAll<GameObject>("TrashObjs");
+        _prefabs = Resources.LoadAll<GameObject>("Trash");
 
         // Comienza la rutina de instanciado
         StartCoroutine(SpawnRoutine());

@@ -6,6 +6,11 @@ TagManager:
   tags:
   - Trash
   - Container
+  - Botella
+  - Lata
+  - Bolsa
+  - Comida
+  - Papel
   layers:
   - Default
   - TransparentFX

@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
@@ -11,6 +11,7 @@ public class BStorage : MonoBehaviour
     private string _reco = "Recoleccion";
     private string _clas = "Clasificacion";
 
+
     void Start()
     {
         _bar = GetComponent<Image>();
@@ -18,55 +19,52 @@ public class BStorage : MonoBehaviour
 
         _b.onClick.AddListener(ChangeMood);
 
+        UpdateBar();        // Muestra valor al inicio
+        UpdateInteractable();
     }
 
     void Update()
     {
-        /* if (!StaticAmountTrash.IsFull)
-         {
-             _b.interactable = false;
-         }
-
-         if (StaticAmountTrash.IsFull)
-         {
-             Debug.Log("STORAGE FULL: No se puede recolectar más basura");
-
-             _b.interactable = true;
-             return;
-         }*/
-
-
-
-        float current = StaticAmountTrash.GetAmount();
-        float max = StaticAmountTrash.GetMaxAmount();
-
-        float percent = current / max;
-        percent = Mathf.Clamp01(percent);
-
-        _bar.fillAmount = percent;
-
-        // En recolección el botón solo funciona si está lleno
-        if (SceneManager.GetActiveScene().name == _reco)
+        // Solo actualiza si StaticAmount cambiÃ³ en el frame
+        if (StaticAmount.AmountChanged)
         {
-            _b.interactable = StaticAmountTrash.IsFull;
+            UpdateBar();
+            UpdateInteractable();
+            StaticAmount.ResetFlag();
         }
-        else // estás en clasificación
+    }
+
+    private void UpdateBar()
+    {
+        float current = StaticAmount.GetAmount();
+        float max = StaticAmount.GetMaxAmount();
+
+        _bar.fillAmount = Mathf.Clamp01(current / max);
+    }
+
+    private void UpdateInteractable()
+    {
+        string scene = SceneManager.GetActiveScene().name;
+
+        if (scene == _reco)
         {
-            _b.interactable = (current <= 0f);
+            _b.interactable = StaticAmount.IsFull;
         }
-
-
+        else
+        {
+            _b.interactable = StaticAmount.IsEmpty;
+        }
     }
 
     private void ChangeMood()
     {
         string scene = SceneManager.GetActiveScene().name;
 
-        if (scene == _reco && StaticAmountTrash.IsFull)
+        if (scene == _reco && StaticAmount.IsFull)
         {
             SceneManager.LoadScene(_clas);
         }
-        else if (scene == _clas && StaticAmountTrash.GetAmount() <= 0f)
+        else if (scene == _clas && StaticAmount.IsEmpty)
         {
             SceneManager.LoadScene(_reco);
         }
